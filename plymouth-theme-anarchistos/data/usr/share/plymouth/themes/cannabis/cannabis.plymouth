@@ -1,0 +1,8 @@
+[Plymouth Theme]
+Name=Cannabis
+Description=Cannabis moved by wind. Created by areyouloco@paranoici.org. Based on Dandelion theme.
+ModuleName=script
+
+[script]
+ImageDir=/usr/share/plymouth/themes/cannabis
+ScriptFile=/usr/share/plymouth/themes/cannabis/cannabis.script

@@ -1,0 +1,8 @@
+[Plymouth Theme]
+Name=Anarchist
+Description=Based on Dandelion theme
+ModuleName=script
+
+[script]
+ImageDir=/usr/share/plymouth/themes/anarchist
+ScriptFile=/usr/share/plymouth/themes/anarchist/anarchist.script

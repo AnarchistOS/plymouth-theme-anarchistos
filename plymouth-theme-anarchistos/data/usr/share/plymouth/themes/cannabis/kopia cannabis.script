@@ -1,0 +1,236 @@
+##### BACKGROUND
+Window.SetBackgroundTopColor(0.000, 0.000, 0.000);
+Window.SetBackgroundBottomColor(0.000, 0.120, 0.000);
+
+##### IMAGES
+#Anarchy logo
+logo.image = Image("anarchy-logo.png");
+#Canna images
+canna.image = Image("cannabis_big.png");
+smallcanna.image = Image("cannabis.png");
+
+
+##########
+#STAŁE
+##########
+# Window
+window_width = Window.GetWidth();
+window_height = Window.GetHeight();
+# Screen ratio
+screen_ratio = window_height / window_width;
+#Images
+canna_width = canna.image.GetWidth();
+canna_height = canna.image.GetHeight();
+small_canna_width = smallcanna.image.GetWidth();
+small_canna_height = smallcanna.image.GetHeight();
+canna_image_ratio = canna_height / canna_width;
+# Functions
+progress=0;
+down_draft = 0;
+##########
+
+##########
+##Screen: scale&factor, scaling image to screen //doesn't work?
+##########
+if (screen_ratio > canna_image_ratio)
+	{
+		( scale_factor =  window_height / canna_height );
+		# Screen ratio is taller than image ratio, we will match the screen height
+	}
+
+else
+	{
+		( scale_factor =  window_width / canna_width );
+		# Screen ratio is wider than image ratio, we will match the screen width
+	}
+##########
+#You can also set the image while creating the sprite by supplying it to the constructor e.g.
+#my_sprite = Sprite ();
+#my_sprite.SetImage (fat_logo_image);
+#OR simply
+#my_sprite = Sprite (fat_logo_image);
+#####
+#scaling doeasn work?
+#canna.image.scal = canna.image.Scale( canna.image.GetWidth() * screen_factor , canna.image.GetHeight() * screen_factor );
+#canna.image = canna.imageg.Scale( canna.imageg.GetWidth() * scale, canna.imageg.GetHeight() * scale);
+#canna.image = Image("cannabis.png");
+#canna.imageg = Image("cannabis.png");
+#canna.sprite = Sprite();
+#scaled_canna_image = canna.origimage.small.Scale(canna_width_small * scale_factor, canna_height_small * scale_factor);
+#canna_small.sprite = Sprite(scaled_canna_image); # Create the sprite using the scaled canna image
+###
+##########
+
+##### MAIN FUNCTION
+fun refresh (){
+	down_draft = Math.Min(down_draft+1, 120);
+	progress++;
+	
+	#Window.SetBackgroundBottomColor (0.0, 0.01+progress, 0.0);
+	
+	#Show Anarchy logo
+	#logo.image.rot = logo.image.Rotate(Math.Sin(progress)/25);
+	logo.sprite = Sprite(logo.image);
+	logo.sprite.SetOpacity(Math.Random()*Math.Random()*Math.Random()+0.5);
+	theta = progress / 10;
+	#logo.sprite.SetX(Window.GetWidth() / 2);
+	#logo.sprite.SetY(Window.GetHeight() / 2 - Math.Cos(theta) * 200);
+	#logo.sprite.SetZ(1000);
+	logo.sprite.SetPosition(window_width * 0.85, window_height * 0.85, 1000);
+	
+	#Show Cannabis Plant
+    canna.image.rot = canna.image.Rotate(Math.Sin(progress/20)/25);
+    canna.sprite = Sprite (canna.image.rot);
+	canna.sprite.SetOpacity(0.1);
+	canna.sprite.SetPosition(window_width*0.50-0.5*canna_width+Math.Sin(Math.Sin(progress/20)/25)*canna.image.rot.GetHeight(), 0.7*window_height-0.5*canna_height, 500);
+	
+		#Show Cannabis Plant
+    smallcanna.image.rot = smallcanna.image.Rotate(Math.Sin(progress/10)/20);
+    smallcanna.sprite = Sprite (smallcanna.image.rot);
+	smallcanna.sprite.SetOpacity(Math.Sin(progress/20)/5+0.5);
+	smallcanna.sprite.SetPosition(window_width*0.20-0.5*small_canna_width+Math.Sin(Math.Sin(progress/10)/20)*smallcanna.image.rot.GetHeight(), 0.7*window_height-0.5*small_canna_height, 600);
+	
+#+Math.Sin(Math.Sin(progress/20)/25)*smallcanna.image.rot.GetHeight()
+
+}
+
+
+Plymouth.SetRefreshFunction (refresh);
+
+#----------------------------------------- Password Dialogue --------------------------------
+
+status = "normal";
+
+fun dialog_setup()
+  {
+    local.box;
+    local.lock;
+    local.entry;
+    
+    box.image = Image("box.png");
+    lock.image = Image("lock.png");
+    entry.image = Image("entry.png");
+    
+    box.sprite = Sprite(box.image);
+    box.x = window_width / 2 - box.image.GetWidth ()/2;
+    box.y = window_height / 2 - box.image.GetHeight()/2;
+    box.z = 10000;
+    box.sprite.SetPosition(box.x, box.y, box.z);
+    
+    lock.sprite = Sprite(lock.image);
+    lock.x = box.x + box.image.GetWidth()/2 - (lock.image.GetWidth() + entry.image.GetWidth()) / 2;
+    lock.y = box.y + box.image.GetHeight()/2 - lock.image.GetHeight()/2;
+    lock.z = box.z + 1;
+    lock.sprite.SetPosition(lock.x, lock.y, lock.z);
+    
+    entry.sprite = Sprite(entry.image);
+    entry.x = lock.x + lock.image.GetWidth();
+    entry.y = box.y + box.image.GetHeight()/2 - entry.image.GetHeight()/2;
+    entry.z = box.z + 1;
+    entry.sprite.SetPosition(entry.x, entry.y, entry.z);
+    
+    global.dialog.box = box;
+    global.dialog.lock = lock;
+    global.dialog.entry = entry;
+    global.dialog.bullet_image = Image("bullet.png");
+    dialog_opacity (1);
+  }
+    
+fun dialog_opacity(opacity)
+  {
+    dialog.box.sprite.SetOpacity (opacity);
+    dialog.lock.sprite.SetOpacity (opacity);
+    dialog.entry.sprite.SetOpacity (opacity);
+    for (index = 0; dialog.bullet[index]; index++)
+      {
+        dialog.bullet[index].sprite.SetOpacity(opacity);
+      }
+  }
+
+fun display_normal_callback ()
+  {
+    global.status = "normal";
+    if (global.dialog)
+      dialog_opacity (0);
+  }
+
+fun display_password_callback (prompt, bullets)
+  {
+    global.status = "password";
+    if (!global.dialog)
+	dialog_setup();
+    else
+	dialog_opacity(1);
+    for (index = 0; dialog.bullet[index] || index < bullets; index++)
+      {
+        if (!dialog.bullet[index])
+          {
+            dialog.bullet[index].sprite = Sprite(dialog.bullet_image);
+            dialog.bullet[index].x = dialog.entry.x + index * dialog.bullet_image.GetWidth();
+            dialog.bullet[index].y = dialog.entry.y + dialog.entry.image.GetHeight() / 2 - dialog.bullet_image.GetHeight() / 2;
+            dialog.bullet[index].z = dialog.entry.z + 1;
+            dialog.bullet[index].sprite.SetPosition(dialog.bullet[index].x, dialog.bullet[index].y, dialog.bullet[index].z);
+          }
+        if (index < bullets)
+          dialog.bullet[index].sprite.SetOpacity(1);
+        else
+          dialog.bullet[index].sprite.SetOpacity(0);
+      }
+  }
+
+Plymouth.SetDisplayNormalFunction(display_normal_callback);
+Plymouth.SetDisplayPasswordFunction(display_password_callback);
+
+#----------------------------------------- Progress Bar --------------------------------
+
+progress_box.image = Image("progress_box.png");
+progress_box.sprite = Sprite(progress_box.image);
+
+progress_box.x = window_width / 2 -    progress_box.image.GetWidth()  / 2;
+progress_box.y = window_height * 0.80 - progress_box.image.GetHeight() / 2;
+progress_box.sprite.SetPosition(progress_box.x, progress_box.y, 1000);
+
+progress_bar.original_image = Image("progress_bar.png");
+progress_bar.sprite = Sprite();
+
+progress_bar.x = window_width / 2 - progress_bar.original_image.GetWidth() / 2;
+progress_bar.y = window_height * 0.80  - progress_box.image.GetHeight() / 2 + (progress_box.image.GetHeight() - progress_bar.original_image.GetHeight()) / 2;
+progress_bar.sprite.SetPosition(progress_bar.x, progress_bar.y, 1001);
+#warning_image = Image.Text ("We have waited " + time + "seconds and we are "+ (progress * 100) + "% though", 1.0, 1.0, 1.0, 0.0, "Fixed", "center");
+#warning_image.spriteSet.Position(progress_bar.x - 200, progress_bar.y - 200, 1001);
+
+fun progress_callback (time, progress)
+  {
+    if (progress_bar.image.GetWidth () != Math.Int (progress_bar.original_image.GetWidth () * progress))
+      {
+        progress_bar.image = progress_bar.original_image.Scale(progress_bar.original_image.GetWidth(progress_bar.original_image) * progress, progress_bar.original_image.GetHeight());
+        progress_bar.sprite.SetImage (progress_bar.image);
+      }
+#	progress_status = "We have waited " + time + "seconds and we are "+ (progress * 100) + "% though"
+  }
+
+Plymouth.SetBootProgressFunction(progress_callback);
+
+
+#----------------------------------------- Quit --------------------------------
+
+fun quit_callback ()
+{
+  logo.sprite.SetOpacity (1);
+}
+
+Plymouth.SetQuitFunction(quit_callback);
+
+#----------------------------------------- Message --------------------------------
+
+message_sprite = Sprite();
+message_sprite.SetPosition(10, 10, 10000);
+
+
+fun message_callback (text)
+{
+  my_image = Image.Text(text, 1, 1, 1);
+  message_sprite.SetImage(my_image);
+}
+
+Plymouth.SetMessageFunction(message_callback);
