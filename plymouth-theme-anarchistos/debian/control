@@ -1,20 +1,14 @@
-Package: plymouth-theme-anarchistos
-Version: 1.0
-Architecture: all
-Maintainer: AreYouLoco? <areyouloco@paranoici.org>
-Installed-Size: 302
-Depends: plymouth, plymouth-themes, plymouth-themes-script, plymouth-x11
-Breaks: plymouth-drm (<< 0.9.0-6~)
-Provides: plymouth-theme
+Source: plymouth-theme-anarchistos
 Section: misc
 Priority: optional
+Maintainer: AreYouLoco? <areyouloco@paranoici.org>
+Build-Depends: debhelper (>= 9)
+Standards-Version: 3.9.5
 Homepage: https://www.anarchistos.tk
-Description: boot animation, logger and I/O multiplexer - Hamara theme
- Plymouth provides a boot-time I/O multiplexing framework - the most obvious
- use for which is to provide an attractive graphical animation in place of
- the text messages that normally get shown during boot. (The messages are
- instead redirected to a logfile for later viewing.) However, in event-driven
- boot systems Plymouth can also usefully handle user interaction such as
- password prompts for encrypted file systems.
- .
- This package provides the following Anarchistos Linux theme.
+
+Package: plymouth-theme-anarchistos
+Architecture: all
+Depends: plymouth, plymouth-themes, plymouth-themes-script, plymouth-x11
+Breaks: plymouth-drm (<< 0.9.0-6~)
+Description: This package provides the following Anarchistos Linux
+ themes: anarchist and cannabis.
