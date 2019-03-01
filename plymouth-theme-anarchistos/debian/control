@@ -3,12 +3,21 @@ Section: misc
 Priority: optional
 Maintainer: AreYouLoco? <areyouloco@paranoici.org>
 Build-Depends: debhelper (>= 9)
-Standards-Version: 3.9.5
-Homepage: https://www.anarchistos.tk
+Standards-Version: 4.0.0
+Vcs-Browser: https://github.com/anarchistos/plymouth-themes-anarchistos
+Vcs-Git: git://github.com/anarchistos/plymouth-themes-anarchistos.git
+Homepage: https://www.anarchistos.tk/
 
-Package: plymouth-theme-anarchistos
+Package: plymouth-theme-cannabis
 Architecture: all
 Depends: plymouth, plymouth-themes, plymouth-themes-script, plymouth-x11
 Breaks: plymouth-drm (<< 0.9.0-6~)
-Description: This package provides the following Anarchistos Linux
- themes: anarchist and cannabis.
+Description: This package provides the cannabis Plymouth theme
+ for Anarchistos Linux.
+
+Package: plymouth-theme-anarchist
+Architecture: all
+Depends: plymouth, plymouth-themes, plymouth-themes-script, plymouth-x11
+Breaks: plymouth-drm (<< 0.9.0-6~)
+Description: This package provides the anarchist Plymouth theme
+ for Anarchistos Linux.
