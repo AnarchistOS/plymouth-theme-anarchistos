@@ -1,0 +1,9 @@
+1. Fix licenses for the themes:
+ - anarchist (based on other theme-> which license? GPLv3?)
+ - cannabis (made -> what future license policy?)
+ - all into debian/copyright
+https://www.debian.org/doc/debian-policy/ch-docs.html#s-copyrightfile
+https://www.debian.org/doc/debian-policy/ch-archive.html#s-pkgcopyright
+
+2. Fix GitHub upstream name:
+ - plymouth-theme-anarchistos -> plymouth-themes-anarchistos [with 's']
