@@ -10,14 +10,14 @@ Homepage: https://www.anarchistos.tk/
 
 Package: plymouth-theme-cannabis
 Architecture: all
-Depends: plymouth, plymouth-themes, plymouth-themes-script, plymouth-x11
+Depends: plymouth, plymouth-themes
 Breaks: plymouth-drm (<< 0.9.0-6~)
 Description: This package provides the cannabis Plymouth theme
  for Anarchistos Linux.
 
 Package: plymouth-theme-anarchist
 Architecture: all
-Depends: plymouth, plymouth-themes, plymouth-themes-script, plymouth-x11
+Depends: plymouth, plymouth-themes
 Breaks: plymouth-drm (<< 0.9.0-6~)
 Description: This package provides the anarchist Plymouth theme
  for Anarchistos Linux.
